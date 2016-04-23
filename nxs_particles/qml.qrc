@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>shaders/particle1.fsh</file>
+        <file>shaders/particle1.vsh</file>
+    </qresource>
+</RCC>
