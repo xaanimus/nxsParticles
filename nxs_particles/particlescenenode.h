@@ -23,11 +23,12 @@ private:
 
     GLuint m_texture_id;
 
-    std::unique_ptr<ParticleSystem> m_particle_system;
+    std::shared_ptr<ParticleSystem> m_particle_system;
 
     int m_particle_verts_count;
     int m_billboard_verts_count;
     int m_tex_uv_count;
+    int m_loc_stride, m_loc_offset, m_loc_count;
 };
 
 #endif // PARTICLESCENENODE_H

@@ -67,7 +67,9 @@ void SceneManager::draw(QOpenGLFunctions *func)
         return;
     }
 
+    UpdateContainer updates;
     DrawInfo info = DrawInfo {m_camera};
 
+    m_root->update(updates);
     m_root->draw(func, m_camera->matrix(), info);
 }

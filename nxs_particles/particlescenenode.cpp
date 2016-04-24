@@ -7,6 +7,7 @@ ParticleSceneNode::ParticleSceneNode()
     , m_square_buffer(QOpenGLBuffer(QOpenGLBuffer::VertexBuffer))
     , m_particle_verts_buffer(QOpenGLBuffer(QOpenGLBuffer::VertexBuffer))
     , m_tex_uv_buffer(QOpenGLBuffer(QOpenGLBuffer::VertexBuffer))
+    , m_particle_system(new ParticleSystem)
 {
     //vertex data
     GLfloat square_verts[] = {-.1, -.1, 0.0,
@@ -68,7 +69,7 @@ ParticleSceneNode::ParticleSceneNode()
     m_square_buffer.release();
 
     m_particle_verts_buffer.create();
-    m_particle_verts_buffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
+    m_particle_verts_buffer.setUsagePattern(QOpenGLBuffer::DynamicDraw);
     m_particle_verts_buffer.bind();
     m_particle_verts_buffer.allocate(particle_verts, sizeof(particle_verts));
     m_particle_verts_buffer.release();
@@ -89,6 +90,9 @@ ParticleSceneNode::ParticleSceneNode()
                                        ":/shaders/particle1.fsh");
     m_program->link();
 
+    m_loc_stride = 0;
+    m_loc_offset = 0;
+    m_loc_count = 3;
 }
 
 ParticleSceneNode::~ParticleSceneNode()
@@ -126,7 +130,7 @@ void ParticleSceneNode::draw_this(QOpenGLFunctions *func, glm::mat4 matrix, Draw
     //vertices loc
     m_particle_verts_buffer.bind();
     m_program->enableAttributeArray(vertsID);
-    m_program->setAttributeBuffer(vertsID, GL_FLOAT, 0, 3, 0);
+    m_program->setAttributeBuffer(vertsID, GL_FLOAT, m_loc_offset, m_loc_count, m_loc_stride);
     m_particle_verts_buffer.release();
 
     //billboard
@@ -155,6 +159,24 @@ void ParticleSceneNode::draw_this(QOpenGLFunctions *func, glm::mat4 matrix, Draw
 
 void ParticleSceneNode::update_this(UpdateContainer updates)
 {
+    qDebug() << "update particles";
+
     //update particle system state
+
     //fetch particle system state and feed buffers
+    ParticleGroup pGroup = m_particle_system->getParticles();
+
+    if (std::shared_ptr<ParticleState> particles = pGroup.particles.lock()) {
+        m_particle_verts_buffer.bind();
+        m_particle_verts_buffer.allocate(particles->data(), particles->size() * sizeof(Particle));
+        m_particle_verts_buffer.release();
+
+        m_loc_stride = pGroup.stride;
+        m_loc_offset = pGroup.position_offset;
+        m_loc_count  = pGroup.position_count;
+
+        m_particle_verts_count = particles->size();
+
+        qDebug() << m_loc_offset << m_loc_count << m_loc_stride;
+    }
 }
