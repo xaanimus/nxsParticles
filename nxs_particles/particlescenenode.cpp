@@ -7,8 +7,8 @@ ParticleSceneNode::ParticleSceneNode()
 {
     GLfloat square_verts[] = {-.1, -.1, 0.0,
                               -.1,  .1, 0.0,
-                               .1,  .1, 0.0,
-                               .1, -.1, 0.0};
+                               .1, -.1, 0.0,
+                               .1,  .1, 0.0};
 
     GLfloat particle_verts[] = {-.5f, -.5f,  0.0f,
                                  .5f, -.5f,  0.0f,
@@ -18,7 +18,9 @@ ParticleSceneNode::ParticleSceneNode()
                                  .5f, -.5f,  0.5f,
                                  .5f,  .5f,  0.5f,
                                 -.5f,  .5f,  0.5f,};
+
     m_particle_verts_count = sizeof(particle_verts)/sizeof(particle_verts[0])/3;
+    m_billboard_verts_count = sizeof(square_verts)/sizeof(square_verts[0])/3;
 
     //Initialize buffers
 
@@ -55,23 +57,43 @@ ParticleSceneNode::~ParticleSceneNode()
 {
 }
 
-void ParticleSceneNode::draw_this(QOpenGLFunctions *func, glm::mat4 matrix)
+void ParticleSceneNode::draw_this(QOpenGLFunctions *func, glm::mat4 matrix, DrawInfo &info)
 {
+    glm::vec3 right, up;
+    if (std::shared_ptr<Camera> camera = info.active_camera.lock()) {
+        right = camera->right_vector();
+        up = camera->up_vector();
+    }
+
     m_program->bind();
+    int camera_up_id = m_program->uniformLocation("camera_up");
+    int camera_right_id = m_program->uniformLocation("camera_right");
     int mvpID = m_program->uniformLocation("mvp");
+
     func->glUniformMatrix4fv(mvpID, 1, GL_FALSE, &matrix[0][0]);
+    func->glUniform3fv(camera_right_id, 1, &right[0]);
+    func->glUniform3fv(camera_up_id, 1, &up[0]);
 
     //draw particle buffers
     m_vao.bind();
 
-    int vertsID = m_program->attributeLocation("verts");
-    m_particle_verts_buffer.bind();
+    int vertsID = m_program->attributeLocation("loc");
+    int billboardID = m_program->attributeLocation("billboard_vert");
 
+    m_particle_verts_buffer.bind();
     m_program->enableAttributeArray(vertsID);
     m_program->setAttributeBuffer(vertsID, GL_FLOAT, 0, 3, 0);
-
-    func->glDrawArrays(GL_POINTS, 0, m_particle_verts_count);
     m_particle_verts_buffer.release();
+
+    m_square_buffer.bind();
+    m_program->enableAttributeArray(billboardID);
+    m_program->setAttributeBuffer(billboardID, GL_FLOAT, 0, 3, 0);
+    m_square_buffer.release();
+
+    glVertexAttribDivisor(vertsID, 1);
+    glVertexAttribDivisor(billboardID, 0);
+
+    glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, m_billboard_verts_count, m_particle_verts_count);
 
     m_program->disableAttributeArray(vertsID);
 

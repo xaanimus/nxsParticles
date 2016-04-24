@@ -12,7 +12,7 @@ public:
     ~ParticleSceneNode();
 
 private:
-    virtual void draw_this(QOpenGLFunctions *func, glm::mat4 matrix);
+    virtual void draw_this(QOpenGLFunctions *func, glm::mat4 matrix, DrawInfo &info);
     virtual void update_this(UpdateContainer updates);
 
 
@@ -24,6 +24,7 @@ private:
     std::unique_ptr<ParticleSystem> m_particle_system;
 
     int m_particle_verts_count;
+    int m_billboard_verts_count;
 };
 
 #endif // PARTICLESCENENODE_H

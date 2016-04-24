@@ -6,16 +6,16 @@ SceneNode::SceneNode()
     : m_scale(glm::vec3(1.0,1.0,1.0))
 {}
 
-void SceneNode::draw(QOpenGLFunctions *func, glm::mat4 matrix)
+void SceneNode::draw(QOpenGLFunctions *func, glm::mat4 matrix, DrawInfo &info)
 {
     matrix = glm::scale(matrix, m_scale);
     matrix = glm::translate(matrix, m_pos);
     matrix = matrix * glm::orientate4(m_rot);
 
-    draw_this(func, matrix);
+    draw_this(func, matrix, info);
 
     for(SceneNode &child : m_children) {
-        child.draw(func, matrix);
+        child.draw(func, matrix, info);
     }
 }
 
@@ -32,7 +32,7 @@ void SceneNode::add_child(SceneNode &child)
 {
 }
 
-void GroupSceneNode::draw_this(QOpenGLFunctions*, glm::mat4)
+void GroupSceneNode::draw_this(QOpenGLFunctions*, glm::mat4, DrawInfo &info)
 {}
 void GroupSceneNode::update_this(UpdateContainer)
 {}
@@ -89,7 +89,7 @@ TriangleSceneNode::TriangleSceneNode()
 }
 
 //TODO Debug mvp!
-void TriangleSceneNode::draw_this(QOpenGLFunctions *func, glm::mat4 matrix)
+void TriangleSceneNode::draw_this(QOpenGLFunctions *func, glm::mat4 matrix, DrawInfo &info)
 {
 
     m_program->bind();

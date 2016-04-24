@@ -11,12 +11,12 @@ class SceneNode
 public:
     SceneNode();
 
-    void draw(QOpenGLFunctions * func, glm::mat4 matrix);
+    void draw(QOpenGLFunctions * func, glm::mat4 matrix, DrawInfo &info);
     void update(UpdateContainer updates);
     void add_child(SceneNode &child);
 
 private:
-    virtual void draw_this(QOpenGLFunctions * func, glm::mat4 matrix) = 0;
+    virtual void draw_this(QOpenGLFunctions * func, glm::mat4 matrix, DrawInfo &info) = 0;
     virtual void update_this(UpdateContainer updates) = 0;
 
     glm::vec3 m_pos;
@@ -31,7 +31,7 @@ class GroupSceneNode : public SceneNode
 {
 public:
 private:
-    virtual void draw_this(QOpenGLFunctions * func, glm::mat4 matrix);
+    virtual void draw_this(QOpenGLFunctions * func, glm::mat4 matrix, DrawInfo &info);
     virtual void update_this(UpdateContainer updates);
 };
 
@@ -41,7 +41,7 @@ class TriangleSceneNode : public SceneNode
 public:
     TriangleSceneNode();
 private:
-    virtual void draw_this(QOpenGLFunctions * func, glm::mat4 matrix);
+    virtual void draw_this(QOpenGLFunctions * func, glm::mat4 matrix, DrawInfo &info);
     virtual void update_this(UpdateContainer updates);
 
     int m_verts_count, m_element_count;

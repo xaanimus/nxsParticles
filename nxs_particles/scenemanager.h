@@ -22,7 +22,7 @@ private:
     double ticks_per_sec;
 
     std::unique_ptr<SceneNode> m_root;
-    std::unique_ptr<Camera> m_camera;
+    std::shared_ptr<Camera> m_camera;
 };
 
 #endif // SCENEMANAGER_H

@@ -8,7 +8,7 @@
 
 SceneManager::SceneManager()
 {
-    m_camera = std::unique_ptr<Camera>(new Camera);
+    m_camera = std::shared_ptr<Camera>(new Camera);
     m_camera->moveTo(glm::vec3(0.0,0.0,-2.0));
     m_root = std::unique_ptr<SceneNode>(new ParticleSceneNode);
 }
@@ -67,5 +67,7 @@ void SceneManager::draw(QOpenGLFunctions *func)
         return;
     }
 
-    m_root->draw(func, m_camera->matrix());
+    DrawInfo info = DrawInfo {m_camera};
+
+    m_root->draw(func, m_camera->matrix(), info);
 }

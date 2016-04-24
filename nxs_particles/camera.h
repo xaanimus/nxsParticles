@@ -18,6 +18,9 @@ public:
 
     const glm::vec3 position() const {return m_pos;}
     const glm::vec3 rotation() const {return m_rot;}
+    glm::vec3 up_vector() const;
+    glm::vec3 right_vector() const;
+
     void moveTo(glm::vec3 pos) {m_pos = pos;}
     void translate(glm::vec3 delta_pos) {m_pos += delta_pos;}
     void translate(float x, float y, float z) {translate(glm::vec3(x,y,z));}
