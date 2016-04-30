@@ -9,6 +9,8 @@ typedef double TimeSec;
 
 struct UpdateContainer {
     TimeTick ticks; //total ticks
+    TimeTick deltaTick;
+    TimeTick tick_per_sec;
     TimeSec seconds; //total seconds
 };
 

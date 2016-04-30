@@ -162,6 +162,7 @@ void ParticleSceneNode::update_this(UpdateContainer updates)
     qDebug() << "update particles";
 
     //update particle system state
+    m_particle_system->update(updates);
 
     //fetch particle system state and feed buffers
     ParticleGroup pGroup = m_particle_system->getParticles();

@@ -68,6 +68,8 @@ void SceneManager::draw(QOpenGLFunctions *func)
     }
 
     UpdateContainer updates;
+    updates.deltaTick = 1;
+    updates.tick_per_sec = 30;
     DrawInfo info = DrawInfo {m_camera};
 
     m_root->update(updates);

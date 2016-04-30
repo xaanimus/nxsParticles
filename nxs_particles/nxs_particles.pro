@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     scenenode.cpp \
     particlescenenode.cpp \
     particlesystem.cpp \
-    texturegenerator.cpp
+    texturegenerator.cpp \
+    particlecomputer.cpp
 
 RESOURCES += qml.qrc
 
@@ -30,6 +31,7 @@ HEADERS += \
     particlescenenode.h \
     particlesystem.h \
     utilities.h \
-    texturegenerator.h
+    texturegenerator.h \
+    particlecomputer.h
 
 INCLUDEPATH += /usr/local/Cellar/glm/0.9.7.1/include

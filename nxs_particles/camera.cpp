@@ -18,14 +18,6 @@ const glm::mat4 Camera::matrix() const
 {
     glm::mat4 projection = glm::perspective(m_fovy, m_aspect, m_clip_near, m_clip_far);
 
-    /*
-    glm::mat4 view = glm::translate(glm::mat4(1.0f), m_pos);
-    //view = glm::rotate(view, m_rot.x, glm::vec3(1.0,0.0,0.0));
-    //view = glm::rotate(view, m_rot.y, glm::vec3(0.0,1.0,0.0));
-    //view = glm::rotate(view, m_rot.z, glm::vec3(0.0,1.0,1.0));
-    view = view * glm::orientate4(m_rot);
-    */
-
     //zxy
     glm::mat4 rotation_matrix = glm::yawPitchRoll(m_rot.z, m_rot.x, m_rot.y);
     glm::vec4 fwd = rotation_matrix * glm::vec4(default_fwd, 0.0);
