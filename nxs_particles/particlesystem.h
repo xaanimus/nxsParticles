@@ -20,13 +20,18 @@ enum ForceType {
     i.e. for gravity (x,y,z) = (0,0,-1); mag1 = 9.8 */
     ForceDirectional,
 
-    /** TODO spec */
-    ForceNoise_1
+    /** seed1 : seed, mag1 : magnitude */
+    ForceNoise_1,
+
+    /** smooth noise.
+        seed1 : seed, mag1 : magnitude */
+    ForceNoise_2
 };
 
 struct Force {
     float x, y, z, mag1;
     ForceType type;
+    int seed1;
 
     const glm::vec3 xyz() const {return glm::vec3(x,y,z);}
 };

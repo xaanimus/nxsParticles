@@ -7,6 +7,7 @@
 #define ROT_AMT 0.1f
 
 SceneManager::SceneManager()
+    : m_pause(false)
 {
     m_camera = std::shared_ptr<Camera>(new Camera);
     m_camera->moveTo(glm::vec3(0.0,0.0,-2.0));
@@ -69,9 +70,9 @@ void SceneManager::draw(QOpenGLFunctions *func)
 
     UpdateContainer updates;
     updates.deltaTick = 1;
-    updates.tick_per_sec = 30;
+    updates.tick_per_sec = 1 / 14.f * 1000.f;
     DrawInfo info = DrawInfo {m_camera};
 
-    m_root->update(updates);
+    if (!m_pause) m_root->update(updates);
     m_root->draw(func, m_camera->matrix(), info);
 }

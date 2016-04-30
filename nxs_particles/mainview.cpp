@@ -3,6 +3,7 @@
 
 #include "mainview.h"
 
+//milliseconds between each tick
 #define RENDER_INTERVAL 14
 
 MainView::MainView()
@@ -29,6 +30,7 @@ void MainView::sync()
 {
     if (!m_renderer) {
         m_renderer = std::unique_ptr<MainRenderer>(new MainRenderer);
+        m_renderer->set_ticks_per_second(1 / (RENDER_INTERVAL / 1000.f) );
 
         connect(m_update_timer, SIGNAL(timeout()),
                 window(), SLOT(update()));
@@ -97,6 +99,10 @@ void MainView::keyPressEvent(QKeyEvent * event)
         break;
     case Qt::Key_K:
         m_scene_manager->rotate_camera(Camera::Down);
+        break;
+
+    case Qt::Key_P:
+        m_scene_manager->toggle_pause();
         break;
 
     default:

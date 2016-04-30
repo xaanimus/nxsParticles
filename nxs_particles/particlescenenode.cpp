@@ -9,11 +9,12 @@ ParticleSceneNode::ParticleSceneNode()
     , m_tex_uv_buffer(QOpenGLBuffer(QOpenGLBuffer::VertexBuffer))
     , m_particle_system(new ParticleSystem)
 {
+    const float psize = .03f;
     //vertex data
-    GLfloat square_verts[] = {-.1, -.1, 0.0,
-                              -.1,  .1, 0.0,
-                               .1, -.1, 0.0,
-                               .1,  .1, 0.0};
+    GLfloat square_verts[] = {-psize, -psize, 0.0,
+                              -psize,  psize, 0.0,
+                               psize, -psize, 0.0,
+                               psize,  psize, 0.0};
 
     GLfloat particle_verts[] = {-.5f, -.5f,  0.0f,
                                  .5f, -.5f,  0.0f,

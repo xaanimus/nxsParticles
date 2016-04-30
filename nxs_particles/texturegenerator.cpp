@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-#define PARTICLE_SIZE_ONE 128
+#define PARTICLE_SIZE_ONE 32
 
 static std::vector<uint8_t> particle_tex_1;
 

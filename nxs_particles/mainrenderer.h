@@ -20,6 +20,8 @@ public:
         m_scene_manager = scene_manager;
     }
 
+    void set_ticks_per_second(int ticks) {m_ticks_per_second = ticks;}
+
 public slots:
     void render();
 
@@ -28,6 +30,8 @@ private:
 
     QSize viewportSize;
     QOpenGLShaderProgram *program;
+
+    int m_ticks_per_second;
 
     std::weak_ptr<SceneManager> m_scene_manager;
 };
