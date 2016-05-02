@@ -21,7 +21,7 @@ ParticleSystem::ParticleSystem()
     Force f1;
     f1.type = ForceNoise_2;
     f1.seed1 = 519;
-    f1.mag1 = 0.001f;
+    f1.mag1 = 0.0003f;
 
     Force f2;
     f2.type = ForcePoint;
