@@ -38,20 +38,22 @@ glm::vec3 acc_from_noise(glm::vec3 part_pos, int seed, float mag1)
                             resz / (float) mod_factor);
 }
 
-inline float dist2(glm::vec3 a, glm::vec3 b)
+inline float dist2_max1(glm::vec3 a, glm::vec3 b)
 {
-    return glm::l2Norm(a - b);
+    return fminf( glm::l2Norm(a - b), 1.f);
 }
 
 //This doesn't work quite well. needs work
 glm::vec3 acc_from_noise_smooth(glm::vec3 part_pos, int seed, float mag1)
 {
-    int xi0 = part_pos.x;
-    int yi0 = part_pos.y;
-    int zi0 = part_pos.z;
+    int xi0 = floorf(part_pos.x);
+    int yi0 = floorf(part_pos.y);
+    int zi0 = floorf(part_pos.z);
     int xi = ceilf(part_pos.x);
     int yi = ceilf(part_pos.y);
     int zi = ceilf(part_pos.z);
+
+
 
     glm::vec3 v0 = acc_from_noise(glm::vec3(xi0, yi0, zi0), seed, 1.0f);
     glm::vec3 v1 = acc_from_noise(glm::vec3(xi0, yi0, zi),  seed, 1.0f);
@@ -64,14 +66,14 @@ glm::vec3 acc_from_noise_smooth(glm::vec3 part_pos, int seed, float mag1)
 
     glm::vec3 res = glm::vec3(0,0,0);
 
-    res += (1.0f - dist2(part_pos, v0)) * v0;
-    res += (1.0f - dist2(part_pos, v1)) * v1;
-    res += (1.0f - dist2(part_pos, v2)) * v2;
-    res += (1.0f - dist2(part_pos, v3)) * v3;
-    res += (1.0f - dist2(part_pos, v4)) * v4;
-    res += (1.0f - dist2(part_pos, v5)) * v5;
-    res += (1.0f - dist2(part_pos, v6)) * v6;
-    res += (1.0f - dist2(part_pos, v7)) * v7;
+    res += (1.0f - dist2_max1(part_pos, v0)) * v0;
+    res += (1.0f - dist2_max1(part_pos, v1)) * v1;
+    res += (1.0f - dist2_max1(part_pos, v2)) * v2;
+    res += (1.0f - dist2_max1(part_pos, v3)) * v3;
+    res += (1.0f - dist2_max1(part_pos, v4)) * v4;
+    res += (1.0f - dist2_max1(part_pos, v5)) * v5;
+    res += (1.0f - dist2_max1(part_pos, v6)) * v6;
+    res += (1.0f - dist2_max1(part_pos, v7)) * v7;
 
     return res * mag1;
 }
