@@ -20,15 +20,16 @@ ParticleSystem::ParticleSystem()
 
     Force f1;
     f1.type = ForceNoise_2;
-    f1.seed1 = 519;
-    f1.mag1 = 0.0030f;
+    f1.seed1 = 253;
+    f1.mag1 = 0.0300f;
+    f1.x = .1f;
 
     Force f2;
     f2.type = ForcePoint;
-    f2.x = 1.0f;
-    f2.y = 1.0f;
-    f2.z = 1.0f;
-    f2.mag1 = -0.030f;
+    f2.x = .5f;
+    f2.y = .5f;
+    f2.z = .5f;
+    f2.mag1 = -0.003f;
 
     m_forces.push_back(f1);
     m_forces.push_back(f2);

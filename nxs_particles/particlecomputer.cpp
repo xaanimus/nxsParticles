@@ -44,16 +44,15 @@ inline float dist2_max1(glm::vec3 a, glm::vec3 b)
 }
 
 //This doesn't work quite well. needs work
-glm::vec3 acc_from_noise_smooth(glm::vec3 part_pos, int seed, float mag1)
+glm::vec3 acc_from_noise_smooth(glm::vec3 part_pos, int seed, float mag1, float size = 1.0f)
 {
-    int xi0 = floorf(part_pos.x);
-    int yi0 = floorf(part_pos.y);
-    int zi0 = floorf(part_pos.z);
-    int xi = ceilf(part_pos.x);
-    int yi = ceilf(part_pos.y);
-    int zi = ceilf(part_pos.z);
 
-
+    int xi0 = part_pos.x - (fmodf(part_pos.x, size));
+    int yi0 = part_pos.y - (fmodf(part_pos.y, size));
+    int zi0 = part_pos.z - (fmodf(part_pos.z, size));
+    int xi = part_pos.x + (size - fmodf(part_pos.x, size));
+    int yi = part_pos.y + (size - fmodf(part_pos.y, size));
+    int zi = part_pos.z + (size - fmodf(part_pos.z, size));
 
     glm::vec3 v0 = acc_from_noise(glm::vec3(xi0, yi0, zi0), seed, 1.0f);
     glm::vec3 v1 = acc_from_noise(glm::vec3(xi0, yi0, zi),  seed, 1.0f);
@@ -138,7 +137,7 @@ ParticleState CPUParticleComputer::step(const ParticleState &particle_state,
                 new_particle.velocity += ds * acc_from_noise(new_particle.position, force.seed1, force.mag1);
                 break;
             case ForceNoise_2:
-                new_particle.velocity += ds * acc_from_noise_smooth(new_particle.position, force.seed1, force.mag1);
+                new_particle.velocity += ds * acc_from_noise_smooth(new_particle.position, force.seed1, force.mag1, force.x);
                 break;
             default:
                 break;

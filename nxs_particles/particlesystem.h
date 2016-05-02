@@ -24,7 +24,8 @@ enum ForceType {
     ForceNoise_1,
 
     /** smooth noise.
-        seed1 : seed, mag1 : magnitude */
+        seed1 : seed, mag1 : magnitude
+        x : size */
     ForceNoise_2
 };
 
