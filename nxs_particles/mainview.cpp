@@ -19,6 +19,7 @@ MainView::MainView()
             this, SLOT(windowDidChange(QQuickWindow*)));
 
     m_update_timer = new QTimer(0);
+    
     m_update_timer->setInterval(RENDER_INTERVAL);
     m_update_timer->setSingleShot(false);
     m_update_timer->start(10);

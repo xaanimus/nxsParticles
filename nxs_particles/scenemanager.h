@@ -8,6 +8,9 @@
 #include "scenenode.h"
 #include "utilities.h"
 
+/**
+ * @brief The SceneManager class is in charge of managing the scene nodes.
+ */
 class SceneManager
 {
 public:

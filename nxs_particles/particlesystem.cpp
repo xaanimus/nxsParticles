@@ -7,16 +7,6 @@
 ParticleSystem::ParticleSystem()
     : m_particles(new ParticleState)
 {
-    float incr = 0.03f;
-    float csize = 0.5f;
-    for (float x = -csize; x <= csize; x+=incr) {
-        for (float y = -csize; y <= csize; y+=incr) {
-            for (float z = -csize; z <= csize; z+=incr) {
-                Particle p = Particle {glm::vec3(x,y,z), glm::vec3()};
-                m_particles->push_back(p);
-            }
-        }
-    }
 
     Force f1;
     f1.type = ForceNoise_2;
@@ -26,13 +16,23 @@ ParticleSystem::ParticleSystem()
 
     Force f2;
     f2.type = ForcePoint;
-    f2.x = .5f;
-    f2.y = .5f;
-    f2.z = .5f;
-    f2.mag1 = -0.003f;
+    f2.x = 1.5f;
+    f2.y = 1.5f;
+    f2.z = 1.5f;
+    f2.mag1 = -.800f;
 
     m_forces.push_back(f1);
     m_forces.push_back(f2);
+
+    PointEmitter e1;
+    e1.m_emit_angle = M_PI / 10;
+    e1.m_rate = 100;
+    e1.m_initial_velocity = glm::vec3(0.1f,0.1f,0.1f);
+    e1.m_seed = 1565;
+    e1.m_life = .2f;
+    e1.m_position = glm::vec3(.0f, .0f, .0f);
+
+    m_emitters.push_back(std::unique_ptr<Emitter>(new PointEmitter(e1)));
 }
 
 ParticleGroup ParticleSystem::getParticles()
@@ -45,7 +45,7 @@ ParticleGroup ParticleSystem::getParticles()
 void ParticleSystem::update(UpdateContainer updates)
 {   
     ParticleState n_state = ParticleComputer::get()->interpolate(*m_particles, m_forces,
-                                         updates.deltaTick, updates.tick_per_sec);
+                                         updates.deltaTick, updates.tick_per_sec, m_emitters);
     std::cout << "Number of particles: " << n_state.size() << " !" << std::endl;
     *m_particles = n_state;
 }

@@ -3,6 +3,7 @@
 
 #include "particlesystem.h"
 #include "utilities.h"
+#include "emitter.h"
 
 class ParticleComputer
 {
@@ -13,7 +14,8 @@ public:
     virtual ParticleState interpolate(const ParticleState &particle_state,
                              const std::vector<Force> &forces,
                              TimeTick delta_tick,
-                             const TimeSec &tick_per_sec) = 0;
+                             const TimeSec &tick_per_sec,
+                             EmitterGroup &emitters) = 0;
 };
 
 class CPUParticleComputer : public ParticleComputer {
@@ -23,11 +25,13 @@ public:
     virtual ParticleState interpolate(const ParticleState &particle_state,
                              const std::vector<Force> &forces,
                              TimeTick delta_tick,
-                             const TimeSec &tick_per_sec);
+                             const TimeSec &tick_per_sec,
+                             EmitterGroup &emitters);
 
     ParticleState step(const ParticleState &particle_state,
                        const std::vector<Force> &forces,
-                       const TimeSec &delta_sec);
+                       const TimeSec &delta_sec,
+                       EmitterGroup &emitters);
 };
 
 #endif // PARTICLECOMPUTER_H

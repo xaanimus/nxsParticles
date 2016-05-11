@@ -23,6 +23,7 @@ void MainRenderer::render()
 {
     glViewport(0,0,viewportSize.width(), viewportSize.height());
 
+    //need to move some of these to the particle_scene_node class
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_PROGRAM_POINT_SIZE);
     glEnable(GL_BLEND);

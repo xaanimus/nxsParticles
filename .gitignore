@@ -1,1 +1,3 @@
 build-nxs_particles*
+compile_commands.json
+nxs_particles/CMakeLists.txt

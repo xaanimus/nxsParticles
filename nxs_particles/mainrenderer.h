@@ -7,6 +7,10 @@
 
 #include "scenemanager.h"
 
+/**
+ * @brief The MainRenderer in charge of rendering
+ * MainRenderer is in charge of rendering using QOpenGLFunctions
+ */
 class MainRenderer : public QObject, public QOpenGLFunctions
 {
     Q_OBJECT
@@ -29,7 +33,6 @@ private:
     void init();
 
     QSize viewportSize;
-    QOpenGLShaderProgram *program;
 
     int m_ticks_per_second;
 
