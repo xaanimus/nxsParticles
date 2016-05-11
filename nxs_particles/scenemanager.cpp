@@ -18,22 +18,22 @@ void SceneManager::translate_camera(Camera::CameraMovement movement)
 {
     switch (movement) {
     case Camera::Up :
-        m_camera->translate(0.0, 0.0, TRANSLATE_AMT);
+        m_camera->translateY(TRANSLATE_AMT);
         break;
     case Camera::Down :
-        m_camera->translate(0.0, 0.0, -TRANSLATE_AMT);
+        m_camera->translateY(-TRANSLATE_AMT);
         break;
     case Camera::Left :
-        m_camera->translate(-TRANSLATE_AMT, 0.0, 0.0);
+        m_camera->translateX(-TRANSLATE_AMT);
         break;
     case Camera::Right :
-        m_camera->translate(TRANSLATE_AMT, 0.0, 0.0);
+        m_camera->translateX(TRANSLATE_AMT);
         break;
     case Camera::Forward :
-        m_camera->translate(0.0, TRANSLATE_AMT, 0.0);
+        m_camera->translateZ(-TRANSLATE_AMT);
         break;
     case Camera::Backward :
-        m_camera->translate(0.0, -TRANSLATE_AMT, 0.0);
+        m_camera->translateZ(TRANSLATE_AMT);
         break;
     }
 }
@@ -52,6 +52,8 @@ void SceneManager::rotate_camera(Camera::CameraMovement movement)
         break;
     case Camera::Right :
         m_camera->rotate(0.0, 0.0, ROT_AMT);
+        break;
+    default:
         break;
     }
 }
