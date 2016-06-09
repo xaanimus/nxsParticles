@@ -4,9 +4,10 @@
 #include <QObject>
 #include <QQuickItem>
 #include <memory>
-#include "mainrenderer.h"
-#include "scenemanager.h"
+#include "Scene/mainrenderer.h"
+#include "Scene/scenemanager.h"
 
+//change to QQuickView
 class MainView : public QQuickItem
 {
     Q_OBJECT

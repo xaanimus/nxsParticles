@@ -5,7 +5,7 @@
 #include <QtGui>
 #include <vector>
 
-#include "scenemanager.h"
+#include "Scene/scenemanager.h"
 
 /**
  * @brief The MainRenderer in charge of rendering

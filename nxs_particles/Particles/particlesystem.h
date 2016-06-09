@@ -4,7 +4,7 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include "utilities.h"
-#include "emitter.h"
+#include "Particles/emitter.h"
 
 class Emitter;
 struct Particle;

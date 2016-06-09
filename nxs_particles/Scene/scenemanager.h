@@ -4,8 +4,8 @@
 #include<QOpenGLFunctions>
 #include<memory>
 
-#include "camera.h"
-#include "scenenode.h"
+#include "Scene/camera.h"
+#include "Scene/scenenode.h"
 #include "utilities.h"
 
 /**

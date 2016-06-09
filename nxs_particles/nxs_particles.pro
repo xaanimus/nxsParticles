@@ -4,17 +4,33 @@ QT += qml quick
 CONFIG += c++11
 TARGET = nxsparticles
 
-SOURCES += main.cpp \
+#Sources
+SOURCES += \
+    main.cpp \
     mainview.cpp \
-    mainrenderer.cpp \
-    scenemanager.cpp \
-    camera.cpp \
-    scenenode.cpp \
-    particlescenenode.cpp \
-    particlesystem.cpp \
     texturegenerator.cpp \
-    particlecomputer.cpp \
-    emitter.cpp
+    Particles/particlecomputer.cpp \
+    Particles/particlesystem.cpp \
+    Particles/emitter.cpp \
+    Scene/particlescenenode.cpp \
+    Scene/scenemanager.cpp \
+    Scene/mainrenderer.cpp \
+    Scene/camera.cpp \
+    Scene/scenenode.cpp
+
+
+HEADERS += \
+    mainview.h \
+    utilities.h \
+    texturegenerator.h \
+    Particles/particlesystem.h \
+    Particles/particlecomputer.h \
+    Particles/emitter.h \
+    Scene/mainrenderer.h \
+    Scene/camera.h \
+    Scene/scenenode.h \
+    Scene/particlescenenode.h \
+    Scene/scenemanager.h
 
 RESOURCES += qml.qrc
 
@@ -23,18 +39,5 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
-
-HEADERS += \
-    mainview.h \
-    mainrenderer.h \
-    scenemanager.h \
-    camera.h \
-    scenenode.h \
-    particlescenenode.h \
-    particlesystem.h \
-    utilities.h \
-    texturegenerator.h \
-    particlecomputer.h \
-    emitter.h
 
 INCLUDEPATH += /usr/local/Cellar/glm/0.9.7.1/include

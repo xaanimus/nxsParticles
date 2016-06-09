@@ -3,7 +3,7 @@
 
 #include <QtGui>
 #include "scenenode.h"
-#include "particlesystem.h"
+#include "Particles/particlesystem.h"
 
 class ParticleSceneNode : public SceneNode
 {

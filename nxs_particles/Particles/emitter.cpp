@@ -1,7 +1,9 @@
 #include <cmath>
+
 #include "utilities.h"
-#include "emitter.h"
 #include "glm/gtx/rotate_vector.hpp"
+
+#include "emitter.h"
 
 #include <iostream>
 

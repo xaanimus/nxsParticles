@@ -38,7 +38,6 @@ void MainView::sync()
         connect(window(), SIGNAL(beforeRendering()),
                 m_renderer.get(), SLOT(render()), Qt::DirectConnection);
 
-
         m_scene_manager = std::shared_ptr<SceneManager>(new SceneManager);
         m_renderer->set_scene_manager(m_scene_manager);
     }

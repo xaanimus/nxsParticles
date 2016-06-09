@@ -1,7 +1,7 @@
 #include "glm/glm.hpp"
 
-#include "scenemanager.h"
-#include "particlescenenode.h"
+#include "Scene/scenemanager.h"
+#include "Scene/particlescenenode.h"
 
 #define TRANSLATE_AMT 0.1f
 #define ROT_AMT 0.1f

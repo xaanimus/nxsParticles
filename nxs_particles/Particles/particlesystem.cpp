@@ -1,8 +1,8 @@
 #include <cmath>
 #include <iostream>
 
-#include "particlesystem.h"
-#include "particlecomputer.h"
+#include "Particles/particlesystem.h"
+#include "Particles/particlecomputer.h"
 
 ParticleSystem::ParticleSystem()
     : m_particles(new ParticleState)

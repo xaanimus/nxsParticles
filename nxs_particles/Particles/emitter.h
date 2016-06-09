@@ -4,7 +4,8 @@
 #include <functional>
 #include <memory>
 #include "glm/glm.hpp"
-#include "particlesystem.h"
+
+#include "Particles/particlesystem.h"
 
 struct Particle;
 class Emitter;

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "particlecomputer.h"
+#include "Particles/particlecomputer.h"
 #include "glm/gtx/norm.hpp"
 
 std::shared_ptr<ParticleComputer> particle_computer_instance;

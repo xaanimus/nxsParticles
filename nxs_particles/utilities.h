@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <math.h>
-#include "camera.h"
+#include "Scene/camera.h"
 
 typedef int TimeTick;
 typedef double TimeSec;

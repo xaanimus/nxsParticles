@@ -1,9 +1,10 @@
 #ifndef PARTICLECOMPUTER_H
 #define PARTICLECOMPUTER_H
 
-#include "particlesystem.h"
 #include "utilities.h"
-#include "emitter.h"
+
+#include "Particles/particlesystem.h"
+#include "Particles/emitter.h"
 
 class ParticleComputer
 {
