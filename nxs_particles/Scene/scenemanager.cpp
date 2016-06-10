@@ -58,7 +58,7 @@ void SceneManager::rotate_camera(Camera::CameraMovement movement)
     }
 }
 
-void SceneManager::draw(QOpenGLFunctions *func)
+void SceneManager::draw()
 {
     if (!m_root) {
         qDebug() << "no SceneManager.m_root, will not draw";
@@ -76,5 +76,16 @@ void SceneManager::draw(QOpenGLFunctions *func)
     DrawInfo info = DrawInfo {m_camera};
 
     if (!m_pause) m_root->update(updates);
-    m_root->draw(func, m_camera->matrix(), info);
+    m_root->draw(m_camera->matrix(), info);
+}
+
+std::shared_ptr<SceneNode> SceneManager::root_node() const
+{
+    return m_root;
+}
+
+std::shared_ptr<Camera> SceneManager::active_camera()
+{
+    return m_camera;
+    //return std::shared_ptr<Camera>(m_camera);
 }

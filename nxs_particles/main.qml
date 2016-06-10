@@ -9,7 +9,14 @@ Window {
     width: 1600
     height: 800
 
+    /*
     MainView {
+        anchors.fill: parent
+        focus: true
+    }
+    */
+
+    FBItem {
         anchors.fill: parent
         focus: true
     }

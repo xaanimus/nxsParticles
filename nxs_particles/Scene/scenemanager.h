@@ -15,18 +15,21 @@ class SceneManager
 {
 public:
     SceneManager();
-    void draw(QOpenGLFunctions *func);
+    void draw();
 
     void translate_camera(Camera::CameraMovement movement);
     void rotate_camera(Camera::CameraMovement movement);
     void toggle_pause() {m_pause = !m_pause;}
+
+    std::shared_ptr<SceneNode> root_node() const;
+    std::shared_ptr<Camera> active_camera();
 
 private:
 
     double m_ticks_per_sec;
     bool m_pause;
 
-    std::unique_ptr<SceneNode> m_root;
+    std::shared_ptr<SceneNode> m_root;
     std::shared_ptr<Camera> m_camera;
 };
 

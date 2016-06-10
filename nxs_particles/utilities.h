@@ -28,7 +28,7 @@ uint64_t inline qrand_int_seed1(int seed) {
 }
 
 float inline qrand_float_seed1(float seed) {
-    uint64_t r = qrand_float_seed1(*(int *)&seed);
+    uint64_t r = qrand_int_seed1(*(int *)&seed);
     return *(float *)r;
 }
 

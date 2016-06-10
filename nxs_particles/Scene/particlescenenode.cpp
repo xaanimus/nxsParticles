@@ -100,7 +100,7 @@ ParticleSceneNode::~ParticleSceneNode()
 {
 }
 
-void ParticleSceneNode::draw_this(QOpenGLFunctions *func, glm::mat4 matrix, DrawInfo &info)
+void ParticleSceneNode::draw_this(glm::mat4 matrix, DrawInfo &info)
 {
     glm::vec3 right, up;
     if (std::shared_ptr<Camera> camera = info.active_camera.lock()) {
@@ -115,10 +115,9 @@ void ParticleSceneNode::draw_this(QOpenGLFunctions *func, glm::mat4 matrix, Draw
     int mvpID = m_program->uniformLocation("mvp");
     int textureID = m_program->uniformLocation("particle_tex");
 
-    func->glUniformMatrix4fv(mvpID, 1, GL_FALSE, &matrix[0][0]);
-    func->glUniform3fv(camera_right_id, 1, &right[0]);
-    func->glUniform3fv(camera_up_id, 1, &up[0]);
-    //func->glUniform1i(textureID, 0);
+    glUniformMatrix4fv(mvpID, 1, GL_FALSE, &matrix[0][0]);
+    glUniform3fv(camera_right_id, 1, &right[0]);
+    glUniform3fv(camera_up_id, 1, &up[0]);
 
 
     //draw particle buffers

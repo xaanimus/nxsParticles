@@ -12,7 +12,7 @@ public:
     ~ParticleSceneNode();
 
 private:
-    virtual void draw_this(QOpenGLFunctions *func, glm::mat4 matrix, DrawInfo &info);
+    virtual void draw_this(glm::mat4 matrix, DrawInfo &info);
     virtual void update_this(UpdateContainer updates);
 
     QOpenGLBuffer m_particle_verts_buffer,

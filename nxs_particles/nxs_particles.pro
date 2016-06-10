@@ -16,7 +16,8 @@ SOURCES += \
     Scene/scenemanager.cpp \
     Scene/mainrenderer.cpp \
     Scene/camera.cpp \
-    Scene/scenenode.cpp
+    Scene/scenenode.cpp \
+    framebufferitem.cpp
 
 
 HEADERS += \
@@ -30,7 +31,8 @@ HEADERS += \
     Scene/camera.h \
     Scene/scenenode.h \
     Scene/particlescenenode.h \
-    Scene/scenemanager.h
+    Scene/scenemanager.h \
+    framebufferitem.h
 
 RESOURCES += qml.qrc
 
