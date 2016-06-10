@@ -5,7 +5,8 @@
 FrameBufferItem::FrameBufferItem(QQuickItem * parent) :
     QQuickFramebufferObject(parent)
 {
-    m_scene_manager = std::shared_ptr<SceneManager>(new SceneManager);
+    //m_scene_manager must be initialized when the opengl context is current
+    m_scene_manager = nullptr;
 }
 
 QQuickFramebufferObject::Renderer*
@@ -19,6 +20,11 @@ FrameBufferItem::createRenderer() const
 void FrameBufferRenderer::synchronize(QQuickFramebufferObject *item)
 {
     FrameBufferItem *fbitem = static_cast<FrameBufferItem *>(item);
+
+    if (fbitem->m_scene_manager == nullptr) {
+        fbitem->m_scene_manager = std::shared_ptr<SceneManager>(new SceneManager);
+    }
+
     m_size = QSize(fbitem->width(), fbitem->height());
     m_state.camera = fbitem->m_scene_manager->active_camera();
     m_state.root = fbitem->m_scene_manager->root_node();

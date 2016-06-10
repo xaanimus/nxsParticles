@@ -10,6 +10,7 @@
 
 /**
  * @brief The SceneManager class is in charge of managing the scene nodes.
+ * It must be initialized on a thread where the opengl context is current
  */
 class SceneManager
 {
