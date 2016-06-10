@@ -19,5 +19,16 @@ Window {
     FBItem {
         anchors.fill: parent
         focus: true
+        id: fbItem
+    }
+
+    Timer {
+        id: updateTimer
+        interval: 16
+        running: true
+        repeat: true
+        onTriggered: {
+            fbItem.update();
+        }
     }
 }

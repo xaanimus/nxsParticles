@@ -11,12 +11,16 @@
 /**
  * @brief The SceneManager class is in charge of managing the scene nodes.
  * It must be initialized on a thread where the opengl context is current
+ * In order to render, do root_node.draw(mat,info) using appropriate matrix and info
  */
 class SceneManager
 {
 public:
     SceneManager();
     void draw();
+    void update_state(TimeTick delta_tick);
+    void set_ticks_per_second(double ticks_per_sec);
+    double get_ticks_per_second() const;
 
     void translate_camera(Camera::CameraMovement movement);
     void rotate_camera(Camera::CameraMovement movement);

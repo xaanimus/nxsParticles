@@ -58,6 +58,30 @@ void SceneManager::rotate_camera(Camera::CameraMovement movement)
     }
 }
 
+void SceneManager::update_state(TimeTick delta_tick)
+{
+    if (!m_root) {
+        qDebug("no m_root!");
+        return;
+    }
+
+    UpdateContainer updates;
+    updates.deltaTick = delta_tick;
+    updates.tick_per_sec = m_ticks_per_sec;
+
+    m_root->update(updates);
+}
+
+void SceneManager::set_ticks_per_second(double ticks_per_sec)
+{
+    m_ticks_per_sec = ticks_per_sec;
+}
+
+double SceneManager::get_ticks_per_second() const
+{
+    return m_ticks_per_sec;
+}
+
 void SceneManager::draw()
 {
     if (!m_root) {
