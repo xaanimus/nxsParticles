@@ -76,7 +76,7 @@ FrameBufferRenderer::FrameBufferRenderer() :
 {}
 
 void FrameBufferRenderer::synchronize(QQuickFramebufferObject *item)
-{   
+{
     FrameBufferItem *fbitem = static_cast<FrameBufferItem *>(item);
 
     if (fbitem->m_scene_manager == nullptr) {
@@ -87,6 +87,8 @@ void FrameBufferRenderer::synchronize(QQuickFramebufferObject *item)
     fbitem->m_scene_manager->update_state(1);
 
     m_size = QSize(fbitem->width(), fbitem->height());
+
+    //not necessary
     m_state.camera = fbitem->m_scene_manager->active_camera();
     m_state.root = fbitem->m_scene_manager->root_node();
 }
@@ -102,14 +104,19 @@ FrameBufferRenderer::createFramebufferObject(const QSize &size)
 void FrameBufferRenderer::render()
 {
     qDebug("render.");
-    glViewport(0, 0, m_size.width(), m_size.height());
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_PROGRAM_POINT_SIZE);
-    glEnable(GL_BLEND);
-    glBlendFunc( GL_SRC_ALPHA, GL_ONE ) ;
-    glDepthMask( GL_FALSE );
-    glClearColor(0,0,0,1);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    SceneNode * node = new TriangleSceneNode;
+
+    QOpenGLFunctions * func = QOpenGLContext::currentContext()->functions();
+
+    func->glViewport(0, 0, m_size.width(), m_size.height());
+    func->glEnable(GL_DEPTH_TEST);
+    func->glEnable(GL_PROGRAM_POINT_SIZE);
+    func->glEnable(GL_BLEND);
+    func->glBlendFunc( GL_SRC_ALPHA, GL_ONE ) ;
+    func->glDepthMask( GL_FALSE );
+    func->glClearColor(0,0,0,1);
+    func->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if (!m_state.root) {
         qDebug() << "no FrameBufferRenderer.m_state.root, will not draw.";
@@ -124,5 +131,7 @@ void FrameBufferRenderer::render()
     DrawInfo info;
     info.active_camera = m_state.camera;
 
-    m_state.root->draw(m_state.camera->matrix(), info);
+    //m_state.root->draw(func, m_state.camera->matrix(), info);
+
+    node->draw(func, m_state.camera->matrix(), info);
 }

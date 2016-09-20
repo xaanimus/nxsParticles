@@ -33,6 +33,6 @@ void MainRenderer::render()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if (std::shared_ptr<SceneManager> manager = m_scene_manager.lock()) {
-        manager->draw();
+        manager->draw(this);
     }
 }

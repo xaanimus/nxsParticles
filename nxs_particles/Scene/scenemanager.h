@@ -17,7 +17,7 @@ class SceneManager
 {
 public:
     SceneManager();
-    void draw();
+    void draw(QOpenGLFunctions *func);
     void update_state(TimeTick delta_tick);
     void set_ticks_per_second(double ticks_per_sec);
     double get_ticks_per_second() const;

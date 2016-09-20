@@ -10,8 +10,8 @@ SceneManager::SceneManager()
     : m_pause(false)
 {
     m_camera = std::shared_ptr<Camera>(new Camera);
-    m_camera->moveTo(glm::vec3(0.0,0.0,-2.0));
-    m_root = std::unique_ptr<SceneNode>(new ParticleSceneNode);
+    m_camera->moveTo(glm::vec3(0.0,0.0,0.0));
+    m_root = std::unique_ptr<SceneNode>(new TriangleSceneNode);
 }
 
 void SceneManager::translate_camera(Camera::CameraMovement movement)
@@ -82,7 +82,7 @@ double SceneManager::get_ticks_per_second() const
     return m_ticks_per_sec;
 }
 
-void SceneManager::draw()
+void SceneManager::draw(QOpenGLFunctions * func)
 {
     if (!m_root) {
         qDebug() << "no SceneManager.m_root, will not draw";
@@ -100,7 +100,7 @@ void SceneManager::draw()
     DrawInfo info = DrawInfo {m_camera};
 
     if (!m_pause) m_root->update(updates);
-    m_root->draw(m_camera->matrix(), info);
+    m_root->draw(func, m_camera->matrix(), info);
 }
 
 std::shared_ptr<SceneNode> SceneManager::root_node() const
@@ -111,5 +111,4 @@ std::shared_ptr<SceneNode> SceneManager::root_node() const
 std::shared_ptr<Camera> SceneManager::active_camera()
 {
     return m_camera;
-    //return std::shared_ptr<Camera>(m_camera);
 }
